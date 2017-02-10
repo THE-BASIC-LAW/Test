@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>好辛苦啊！！！！</title>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js">
+
+    </script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+
+    <script type="text/javascript">
+        function toggle_collapse(idName){
+            var obj = document.getElementById(idName);
+            par_obj = obj.previousSibling.previousSibling;
+            objs = par_obj.children;
+            if(obj.style.display!='none'){
+                obj.style.display='none';
+                for (var i = objs.length - 1; i >= 0; i--) {
+                    console.log(objs[i].tagName);
+                    if(objs[i].tagName=="IMG"){
+                        objs[i].src="http://www.52pojie.cn/static/image/common/collapsed_yes.gif";
+                    }
+                }
+            }else{
+                obj.style.display='block';
+                for (var i = objs.length - 1; i >= 0; i--) {
+                    console.log(objs[i].tagName);
+                    if(objs[i].tagName=="IMG"){
+                        objs[i].src="http://www.52pojie.cn/static/image/common/collapsed_no.gif";
+                    }
+                }
+            }
+        }
+
+        $(function(){
+            $(".dropdown-toggle,#nav_menu").hover(function(){
+                $("#nav_menu").css("display","block");
+                $(this).css("background-position","0 -28px");
+            },function(){
+                $("#nav_menu").css("display","none");
+                $(this).css("background-position","0 0");
+            })
+
+            $(window).scroll(function(){
+                if($(window).scrollTop()!=0){
+                    $("#fix_d .ret_top").css("display","block");
+                }else{
+                    $("#fix_d .ret_top").css("display","none");
+                }
+
+                if($(window).scrollTop()>135){
+                    $("#nav1").css("position","fixed");
+                    $("#nav1").css("top","-15px");
+                    $("#nav1").css("opacity","0.85");
+                    $("#nav1").css("z-index","999");
+                }else{
+                    $("#nav1").css("position","relative");
+                    $("#nav1").css("opacity","1");
+                    $("#nav1").css("top","0");
+                }
+            })
+
+
+            $(".soso").hover(function(){
+                $(this).css("cssText","background-position:-120px -320px !important");
+            },function(){
+                $(this).css("cssText","background-position:-80px -320px !important");
+            })
+
+            $(".weixin").hover(function(){
+                $(this).css("cssText","background-position: -40px -320px !important");
+            },function(){
+                $(this).css("cssText","background-position: 0 -320px !important");
+            })
+
+            $(".per_cen").hover(function(){
+                $(this).css("cssText","background-position:-120px -200px !important");
+            },function(){
+                $(this).css("cssText","background-position:-80px -200px !important");
+            })
+
+            $(".ret_top").hover(function(){
+                $(this).css("cssText","background-position: -40px 0 !important");
+                $(this).css("display","block");
+            },function(){
+                $(this).css("cssText","background-position: 0 0  !important");
+                $(this).css("display","block");
+            })
+
+            $(".ret_top").click(function(){
+                $(this).css("display","none");
+            })
+        })
+
+
+
+        function announcement(){
+            var ann = new Object();
+            ann.annlist = $("#an li");
+            ann.annrows = new Array();
+            ann.annstop = 0;
+            ann.anncount = 0;
+            ann.annrowscount = 1;
+            ann.anninitial = 1;
+            ann.announcementScroll = function(){
+                if(this.annstop){
+                    console.log("why");
+                    setTimeout(function(){
+                        ann.announcementScroll();
+                    },3000);
+                    return;
+                }else if(this.anninitial){
+                    this.anninitial = 0;
+                    var lastTop = 0;
+                    for(var i = 0; i < this.annlist.length; i++){
+                        this.annrows[i] = this.annlist[i].offsetTop-lastTop;
+                        lastTop = this.annlist[i].offsetTop;
+                    }
+                    $("#an").hover(function(){
+                        ann.annstop = 1;
+                    },function(){
+                        ann.annstop = 0;
+                    })
+                    setTimeout(function(){
+                        ann.announcementScroll();
+                    },3000)
+                }else if(this.annrowscount>= this.annlist.length - 1){
+                    annrowscount = 1;
+                    $("#an")[0].scrollTop = 0;
+                }else{
+                    this.anncount = 0;
+                    ann.announcementNextScroll(this.annrows[this.annrowscount]);
+                }
+            };
+
+            ann.announcementNextScroll = function(time){
+                $("#an")[0].scrollTop++;
+                this.anncount++;
+                if(this.anncount != time){
+                    setTimeout(function(){
+                        ann.announcementNextScroll(time);
+                    },10)
+                }else{
+                    this.annrowscount++;
+                    setTimeout(function(){
+                        ann.announcementScroll();
+                    },3000)
+                }
+            };
+            ann.announcementScroll();
+        }
+    </script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-size: 12px;
+        }
+
+        input{margin: 0px !important}
+
+        .d1 {
+            width: 400px;
+            height: 130px;
+            position: absolute;
+            right: 50px;
+            top: 20px;
+        }
+
+        .container-fluid{
+            margin: 15px;
+            position: relative;
+        }
+
+        #div1{
+            height: 100px;
+            background-image: url(img/sea.jpg);
+        }
+
+        a:link{
+            color: black;
+        }
+
+        .blue_a:link{color: #369}
+
+
+        #td_strong a{color: red; font-weight: bold;}
+
+        #quick_link a{padding-left: 17px; }
+
+        #headerline th{border-right: 1px solid #CDCDCD; border-bottom:1px solid #CDCDCD; width: 21.428571428571%; height: 35px; background-color: #EEE; text-align: center;}
+
+        .rank div{height: 19px; padding-left:20px ; background:url(http://www.52pojie.cn/source/plugin/toplist_7ree/template/images/list_bg_7ree.gif) no-repeat; border-bottom: 1px dashed #CDCDCD; overflow: hidden;}
+
+        .rank div a{text-overflow: ellipsis; word-wrap: normal;}
+
+        #tr_rank td{border-right:1px solid #CDCDCD}
+
+        #tr_rank span{float: right; color: #999999}
+
+        .rank .rank1{background-position: 0px -2px;}
+        .rank .rank2{background-position: 0px -22px;}
+        .rank .rank3{background-position: 0px -42px;}
+        .rank .rank4{background-position: 0px -62px;}
+        .rank .rank5{background-position: 0px -82px;}
+        .rank .rank6{background-position: 0px -102px;}
+        .rank .rank7{background-position: 0px -122px;}
+        .rank .rank8{background-position: 0px -142px;}
+        .rank .rank9{background-position: 0px -162px;}
+        .rank .rank10{background-position: 0px -182px;}
+
+        .ts_1{width: 31px; padding-right: 10px}
+        .ts_2{padding: 10px}
+        .ts_3{width: 150px; padding: 10px 0px; text-align: right;}
+        .ts_4{width: 220px; padding: 10px 0px;}
+
+        .ds{width: 210px; margin-left: 10px; padding-left: 8px; white-space: nowrap; word-wrap: normal; word-break: keep-all; text-overflow: ellipsis; overflow: hidden;}
+
+        .ds span{display: block;}
+
+        .tr_dashed{border-top: 1px dashed #CDCDCD;}
+
+        #nav_menu{display: none; position: absolute; top: 159px;right: 24px; background-color:      white; z-index: 100; border: #DCE4EB solid 1px; padding: 20px 5px;box-shadow      : 1px 2px 3px rgba(0,0,0,0.3); float: right;}
+
+        #nav_menu .pbt{font-weight: 700; text-indent: 0}
+
+        #nav_menu .child{text-indent: 2em;}
+
+        #nav_menu>div:first-child{text-align: center; border-bottom: #CDCDCD dashed 1px; padding:10px 10px 20px}
+
+        #nav_menu div{padding: 10px; padding-right: 0px}
+
+        #nav_menu div div{padding: 0px 0px 10px}
+
+        #nav_menu input{background: url(http://www.52pojie.cn/static/image/common/px.png) repeat-x 0 0;}
+
+        ul{padding: 0px; margin: 0px}
+
+        li{list-style: none; float: left;}
+
+        #nav_menu li{border: #CDCDCD solid 1px;width: 190px ; height: 300px; overflow-x:       hidden; overflow-y: auto; padding: 5px; margin-right: 10px; display: inline; }
+
+        #nav_menu p{height: 25px; line-height: 25px; white-space: nowrap; text-indent: 1em}
+
+        .dhbq{border-bottom: #CDCDCD dashed 1px; color: #999}
+
+        .dropdown-toggle{float: right; display: inline; height: 24px; line-height: 24px; background: url(http://www.52pojie.cn/static/image/common/qmenu.png) no-repeat; color: #369 !important; width: 113px; text-align: center; font-weight: bold; z-index: 101; margin:4px 8px; overflow: hidden; position: relative; padding-right: 10px}
+
+        #nav1{background: #2B7ACD url(http://www.52pojie.cn/static/image/common/nv.png) repeat-x 0 0; height: 33px; background-position: 0 -33px; border: #CDCDCD solid 1px;vertical-align: middle; width: 97.86%; margin: 15px}
+
+        #nav1 a{color: white;}
+
+        #nav1 li{line-height: 33px; font-weight: 700; font-size: 14px; padding:0px 15px; background: url(http://www.52pojie.cn/static/image/common/nv_a.png) no-repeat 100% 0;}
+
+        #fix_d{position: fixed; bottom: 70px; right: 5px; border-radius: 3px; width: 40px}
+
+        #fix_d a{width: 40px; height: 40px; background: url(http://www.52pojie.cn/source/plugin/jz52_top/template/jz52top1.png) no-repeat; display: block; margin: 6px 0px}
+
+        .soso{background-position: -80px -320px !important}
+
+        .weixin{background-position: 0 -320px !important}
+
+        .per_cen{background-position: -80px -200px !important}
+
+        #fix_d .ret_top{display: none}
+
+        #ancl li{height: 29px; line-height: 29px; float: right; width: 600px; text-align: right;}
+
+        #an{height: 29px; overflow: hidden;} 
+    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="container-fluid" id="div1">
+        <img src="img/logo.png" style="float: left; position: absolute; top: 10px;"/>
+        <table style="margin:20px; float: right;height: 60px">
+            <tbody>
+                <tr>
+                    <form class="f1" action="" method="post">
+                        <td><label for="username">用户名：<input type="text" name="username" placeholder="手机号/邮箱"
+                           id="username"></label></td>
+                           <td>　<label for="auto_login" style="margin: 2px;"><input type="checkbox" id="auto_login" style="vertical-align: middle">自动登录</label></td>
+                           <td>　<a href="findpwd.php">找回密码</a></td>
+                       </tr>
+                       <tr>
+                        <td><label for="pwd">密　码：<input type="password" name="pwd" id="pwd"></label></td>
+                        <td>　
+                            <button type="submit" value="send" style="width: 75px">登录
+                            </td>
+                            <td>　<a href="register.php">注册[Register]</a></td>
+                        </form>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="nav1">
+            <ul>
+                <li><a href="#">门户</a></li>
+                <li class="active"><a href="#" hidefocus="true" title="portal"><span>网站</span></a></li>
+                <li><a href="#">新帖</a></li>
+                <li><a href="#">搜索</a></li>
+                <li><a href="#">淘贴</a></li>
+                <li><a href="#">悬赏</a></li>
+                <li><a href="#">排行榜</a></li>
+                <li><a href="#">总版规</a></li>
+                <li><a href="#">资源盘</a></li>
+            </ul>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">快捷导航</a>
+        </div>
+
+        <div id="nav_menu">
+            <div>请 <a href="javascript:" class="blue_a">登录</a> 后使用快捷导航<br>没有账号？<a href="javascript" class="blue_a">注册[Register]</a>
+            </div>
+            <div class="mbm">
+                <div>
+                    搜索版块：<input type="text" name="">
+                </div>               
+                <ul>
+                    <li>
+                        <p class="dhbq">所有板块</p>
+                        <p class="pbt"><a href="http://www.52pojie.cn/forum.php?gid=26">【 Ｌ Ｃ Ｇ 】【 Ｌ Ｓ Ｇ 】</a></p>
+                        <p><a href="http://www.52pojie.cn/forum-28-1.html">『LCG Area』</a></p>
+                        <p><a href="http://www.52pojie.cn/forum-58-1.html">『LSG Area』</a></p>
+                        <p class="pbt"><a href="http://www.52pojie.cn/forum.php?gid=1">【 软件安全 】</a></p>
+                        <p><a href="http://www.52pojie.cn/forum-2-1.html">『原创发布区』</a></p>
+                        <p><a href="http://www.52pojie.cn/forum-5-1.html">『脱壳破解区』</a></p>
+                        <p class="child"><a href="http://www.52pojie.cn/forum-75-1.html">『脱壳破解讨论求助区』</a></p>
+                        <p class="child"><a href="http://www.52pojie.cn/forum-22-1.html">『UnPackMe◇CrackMe◇KeyGenMe◇ReverseMe』</a></p>
+                        <p class="child"><a href="http://www.52pojie.cn/forum-68-1.html">『教学培训区』</a></p>
+                        <p><a href="http://www.52pojie.cn/forum-65-1.html">『移动安全区』</a></p>
+                        <p class="child"><a href="http://www.52pojie.cn/forum-73-1.html">『移动安全讨论求助区』</a></p>
+                        <p class="child"><a href="http://www.52pojie.cn/forum-69-1.html">『Android UnPackMe◇CrackMe◇KeyGenMe◇ReverseMe』</a></p>
+                        <p><a href="http://www.52pojie.cn/forum-59-1.html">『软件调试区』</a></p>
+                        <p><a href="http://www.52pojie.cn/forum-24-1.html">『编程语言区』</a></p>
+                        <p class="child"><a href="http://www.52pojie.cn/forum-74-1.html">『编程语言讨论求助区』</a></p>
+                        <p class="child"><a href="http://www.52pojie.cn/forum-37-1.html">『电子书屋』</a></p>
+                        <p><a href="http://www.52pojie.cn/forum-6-1.html">『动画发布区』</a></p>
+                        <p class="child"><a href="http://www.52pojie.cn/forum-21-1.html">『动画精品转载区』</a></p>
+                        <p class="child"><a href="http://www.52pojie.cn/forum-76.html">『吾爱破解动画大赛』</a></p>
+                        <p><a href="http://www.52pojie.cn/forum-4-1.html">『逆向资源区』</a></p>
+                        <p class="child"><a href="http://www.52pojie.cn/forum-46-1.html">『脚本收藏区』</a></p>
+                        <p class="child"><a href="http://www.52pojie.cn/forum-43-1.html">『外文翻译区』</a></p>
+                        <p><a href="http://www.52pojie.cn/forum-16-1.html">『精品软件区』</a></p>
+                        <p><a href="http://www.52pojie.cn/forum-8-1.html">『悬赏问答区』</a></p>
+                        <p class="pbt"><a href="http://www.52pojie.cn/forum.php?gid=49">【 病毒分析 】</a></p>
+                        <p><a href="http://www.52pojie.cn/forum-32-1.html">『病毒分析区』</a></p>
+                        <p><a href="http://www.52pojie.cn/forum-50-1.html">『病毒救援区』</a></p>
+                        <p><a href="http://www.52pojie.cn/forum-41-1.html">『安全工具区』</a></p>
+                        <p class="pbt"><a href="http://www.52pojie.cn/forum.php?gid=35">【 活动策划专区 】</a></p>
+                        <p><a href="http://www.52pojie.cn/forum-62-1.html">『T恤活动作品区』</a></p>
+                        <p><a href="http://www.52pojie.cn/forum-42-1.html">『电子书策划制作区』</a></p>
+                        <p><a href="http://www.52pojie.cn/forum-36-1.html">『周年庆典活动专区』</a></p>
+                        <p><a href="http://www.52pojie.cn/forum-67-1.html">『2014CrackMe大赛』</a></p>
+                        <p><a href="http://www.52pojie.cn/forum-71-1.html">『吾爱破解2016安全挑战赛』</a></p>
+                        <p class="pbt"><a href="http://www.52pojie.cn/forum.php?gid=11">【 管 理 】</a></p>
+                        <p><a href="http://www.52pojie.cn/forum-13-1.html">『站点公告』</a></p>
+                        <p><a href="http://www.52pojie.cn/forum-39-1.html">『招聘求职』</a></p>
+                        <p><a href="http://www.52pojie.cn/forum-25-1.html">『申请专区』</a></p>
+                    </li>
+
+                    <li>
+                       <p class="dhbq">最近浏览</p>
+                   </li>
+
+                   <li>
+                       <p class="dhbq">我的收藏</p>
+                   </li>
+               </ul>
+           </div>
+       </div>
+
+       <div class="container-fluid" style="background: #F7F9FB">
+        <div class="row">
+            <div class="col-lg-3">
+                <table>
+                    <img src="img/grass.png" style="float: left"/>
+                    <tr style="height: 30px">
+                        <th><a href="#">原创发布区&nbsp</a></th>
+                        <th><a href="#" style="color: aqua">精品软件区&nbsp</a></th>
+                        <th><a href="#">逆向资源区&nbsp</a></th>
+                    </tr>
+                    <tr style="height: 30px">
+                        <th><a href="#" style="color: aqua">水漫金山区&nbsp</a></th>
+                        <th><a href="#">影视推荐区&nbsp</a></th>
+                        <th><a href="#" style="color: aqua">福利经验区&nbsp</a></th>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-3">
+                <table>
+                    <img src="img/box.png" style="float: left"/>
+                    <tr style="height: 30px">
+                        <th><a href="#" style="color: blue">脱壳破解区&nbsp</a></th>
+                        <th><a href="#" style="color: red">移动安全区&nbsp</a></th>
+                        <th><a href="#" style="color: blue">病毒分析区&nbsp</a></th>
+                    </tr>
+                    <tr style="height: 30px">
+                        <th><a href="#" style="color: red">水漫金山区&nbsp</a></th>
+                        <th><a href="#" style="color: blue">影视推荐区&nbsp</a></th>
+                        <th><a href="#" style="color: red">福利经验区&nbsp</a></th>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-3">
+                <table>
+                    <img src="img/house.png" style="float: left"/>
+                    <tr style="height: 30px">
+                        <th><a href="#" style="color: red">站点公告&nbsp</a></th>
+                        <th><a href="#">站点导航&nbsp</a></th>
+                        <th><a href="#" style="color: blue">站点总版规&nbsp</a></th>
+                    </tr>
+                    <tr style="height: 30px">
+                        <th><a href="#">申请专区&nbsp</a></th>
+                        <th><a href="#" style="color: green">招聘求职&nbsp</a></th>
+                        <th><a href="#" style="color: aqua"><b>违规怎么办&nbsp</b></a></th>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-3">
+                <img src="img/find.png" style="float: left"/>
+                <table>
+                    <tr style="height: 30px">
+                        <th><a href="" style="color: blue">站点帮助</a></th>
+                    </tr>
+                    <tr style="height: 30px">
+                        <th><a href="">站务处理</a></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" style=" background: #E8EFF5; padding: 10px; padding-left: 30px ">
+        <form action="">
+            <table>
+                <tr>
+                    <td><input type="text" name="search" style="float: left;width: 300px" placeholder="请输入需要搜索的内容"></td>
+                    <td><input type="submit" value="搜索"></td>
+                    <td>
+                        <div>
+                            <strong>　热搜:　</strong>
+                            <a href="#">　新手　</a>
+                            <a href="#">　脱壳　</a>
+                            <a href="#">　内购　</a>
+                            <a href="#">　去广告　</a>
+                            <a href="#">　破解版　</a>
+                            <a href="#">　绿色版　</a>
+                            <a href="#">　视频教程　</a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <div class="container-fluid">
+        <div class="col-lg-6">
+            <a href="#" class="iconfont blue_a">&#xe612</a>
+            <em>>></em>
+            <a href="#">网站</a>
+        </div>
+        <div class="col-lg-6" id="an">
+            <ul id="ancl">
+                <li><span><a href="http://www.52pojie.cn/thread-555215-1-1.html" target="_blank" 
+                   class="xi2"><b><font color="#0000FF">梁景祯，警察在找你！Ban：huitailang【多次注册马甲发布软件捆绑木马】</font></b></a></span><em>
+                   (2016-11-17)</em>
+               </li>
+               <li><span><a 
+                   href="http://www.52pojie.cn/thread-552593-1-1.html" target="_blank" 
+                   class="xi2"><b><font color="#0000FF">关于移动和铁通用户无法登录论坛和
+                   上传头像等问题说明</font></b></a></span><em>(2016-11-12)</em>
+               </li>
+               <li><span><a href="http://www.52pojie.cn/thread-539039-1-
+
+                1.html" target="_blank" class="xi2"><b><font color="#FF0000">【清理未
+
+                活跃会员】清理2016年暑假开放注册未活跃会员公告
+
+            </font></b></a></span><em>(2016-9-21)</em>
+        </li>
+        <li><span><a 
+
+            href="http://www.52pojie.cn/thread-502278-1-1.html" target="_blank" 
+
+            class="xi2"><b><font color="#FF0000">【公告】关于最近多位会员被恶意木
+
+            马加密文件</font></b></a></span><em>(2016-5-30)</em>
+        </li>
+        <li><span><a 
+
+            href="http://www.52pojie.cn/thread-493108-1-1.html" target="_blank" 
+
+            class="xi2"><b><font color="#FF0000">【清理未活跃会员】清理2016年八周
+
+            年开放注册未活跃会员</font></b></a></span><em>(2016-4-28)
+
+        </em>
+    </li>
+    <li><span><a href="http://www.52pojie.cn/thread-490515-1-
+
+        1.html" target="_blank" class="xi2"><b><font color="#FF0000">【公告】
+
+        禁止微商、手机轰炸机等相关软件的发布</font></b></a></span><em>(2016-4
+
+        -20)</em>
+    </li>
+    <li><span><a href="http://www.52pojie.cn/thread-487743-
+
+        1-1.html" target="_blank" class="xi2"><b><font color="#FF0000">【吾爱
+
+        破解·2016·安全挑战赛】开始颁奖！（奖池：15万元人民币）
+
+    </font></b></a></span><em>(2016-4-12)</em>
+</li>
+<li><span><a 
+
+    href="http://www.52pojie.cn/thread-476629-1-1.html" target="_blank" 
+
+    class="xi2"><b><font color="#FF0000">【活动】吾爱破解·2016·安全挑战
+
+    赛，15万奖金等你拿！</font></b></a></span><em>(2016-3-16)
+
+</em>
+</li>
+<li><span><a href="http://www.52pojie.cn/thread-461340-1-
+
+    1.html" target="_blank" class="xi2"><b><font color="#FF0000">BanID：纯
+
+    净永远【发布恶意拦截短信APP】</font></b></a></span><em>(2016-2-14)
+
+</em>
+</li>
+<li><span><a href="http://www.52pojie.cn/thread-459097-1-
+
+    1.html" target="_blank" class="xi2"><b><font color="#FF0000">BanID：暴
+
+    尔丶【发布软件捆绑远控】</font></b></a></span><em>(2016-1-19)
+
+</em>
+</li>
+<li><span><a href="http://www.52pojie.cn/thread-452355-1-
+
+    1.html" target="_blank" class="xi2"><b><font color="#FF0000">【净坛行
+
+    动】论坛禁止发布任何翻墙软件和违法犯罪程序！
+
+</font></b></a></span><em>(2015-12-30)</em>
+</li>
+<li><span><a 
+
+    href="http://www.52pojie.cn/thread-444778-1-1.html" target="_blank" 
+
+    class="xi2"><b><font color="#FF0000">【清理未活跃会员】清理论坛2015年
+
+    光棍节注册未活跃会员</font></b></a></span><em>(2015-12-11)
+
+</em>
+</li>
+<li><span><a href="http://www.52pojie.cn/thread-441341-1-
+
+    1.html" target="_blank" class="xi2"><font color="#339933"><b>【公告】
+
+    吾爱破解论坛调整积分方案（2015年12月3日）</b></font></a></span><em>
+
+    (2015-12-3)</em>
+</li>
+<li><span><a href="http://www.52pojie.cn/thread-
+
+    440309-1-1.html" target="_blank" class="xi2"><b><font 
+
+    color="#FF0000">BanID：1529937【发布软件添加盗QQ后门】
+
+</font></b></a></span><em>(2015-11-30)</em>
+</li>
+<li><span><a 
+
+    href="http://www.52pojie.cn/thread-427628-1-1.html" target="_blank" 
+
+    class="xi2"><b><font color="#FF0000">LCG成员申请规则【2015.11.02】
+
+</font></b></a></span><em>(2015-11-2)</em>
+</li>
+<li><span><a 
+
+    href="http://www.52pojie.cn/thread-422379-1-1.html" target="_blank" 
+
+    class="xi2"><b><font color="#FF0000">BanID：Ss゛锋子℡和qq412158094【
+
+    发布软件捆绑格盘远控木马】</font></b></a></span><em>(2015-10-16)
+
+</em>
+</li>
+<li><span><a href="http://www.52pojie.cn/thread-415844-1-
+
+    1.html" target="_blank" class="xi2"><font color="#FF0000">BanID：掘墓
+
+    人【发布软件捆绑远控木马】</font></a></span><em>(2015-9-25)
+
+</em>
+</li>
+<li><span><a href="http://www.52pojie.cn/thread-411349-1-
+
+    1.html" target="_blank" class="xi2"><b><font color="#FF0000">【公告】
+
+    关于禁止自定义头衔与回帖使用超长代码的公告</font></b></a></span><em>
+
+    (2015-9-11)</em>
+</li>
+<li><span><a href="http://www.52pojie.cn/thread-
+
+    404849-1-1.html" target="_blank" class="xi2"><b><font color="#FF0000">
+
+    【清理未活跃会员】清理论坛2015年暑假注册未活跃会员
+
+</font></b></a></span><em>(2015-8-24)</em>
+</li>
+<li><span><a 
+
+    href="http://www.52pojie.cn/thread-397406-1-1.html" target="_blank" 
+
+    class="xi2"><b><font color="#FF0000">BanID:18234458832【发布恶意锁机程
+
+    序】</font></b></a></span><em>(2015-8-7)</em>
+</li>
+<li><span><a 
+
+    href="http://www.52pojie.cn/thread-392929-1-1.html" target="_blank" 
+
+    class="xi2"><font color="#0000FF">【公告】关于最近灌水贴泛滥情况作如下
+
+    公告！</font></a></span><em>(2015-7-29)</em>
+</li>
+<li><span><a 
+
+    href="http://www.52pojie.cn/thread-393012-1-1.html" target="_blank" 
+
+    class="xi2"><font color="#0000FF">关于打击邀请码贩卖 帐号共享 附件代下
+
+    官方公告！</font></a></span><em>(2015-7-29)</em>
+</li>
+<li><span><a 
+
+    href="http://www.52pojie.cn/thread-391681-1-1.html" target="_blank" 
+
+    class="xi2"><font color="#FF0000">关于吾爱破解论坛被抄袭一事官方说明！
+
+</font></a></span><em>(2015-7-27)</em>
+</li>
+<li><span><a 
+
+    href="http://www.52pojie.cn/thread-377565-1-1.html" target="_blank" 
+
+    class="xi2"><font color="#0000FF">BanID：我来看看来哦 【发布软件捆绑远
+
+    控木马】</font></a></span><em>(2015-6-26)</em>
+</li>
+<li><span><a 
+
+    href="http://www.52pojie.cn/thread-370860-1-1.html" target="_blank" 
+
+    class="xi2"><font color="#0000FF">关于《投诉举报区》近况、感悟和行动
+
+</font></a></span><em>(2015-6-5)</em>
+</li>
+<li><span><a 
+
+    href="http://www.52pojie.cn/thread-369146-1-1.html" target="_blank" 
+
+    class="xi2"><font color="#0000FF">【注意】对于近期几项常见违规行为公示
+
+    ！</font></a></span><em>(2015-6-2)</em>
+</li>
+<li><span><a 
+
+    href="http://www.52pojie.cn/thread-350397-1-1.html" target="_blank" 
+
+    class="xi2"><font color="#0000FF">七周年礼物第五弹之一：吾爱破解专用版
+
+    Ollydbg</font></a></span><em>(2015-4-10)</em>
+</li>
+<li><span><a 
+
+    href="http://www.52pojie.cn/thread-349073-1-1.html" target="_blank" 
+
+    class="xi2"><b><font color="#FF0000">吾爱破解论坛官方入门教学培训第一
+
+    期开始啦！&nbsp;</font></b></a></span><em>(2015-4-7)
+
+</em>
+</li>
+<li><span><a href="http://www.52pojie.cn/thread-349051-1-
+
+    1.html" target="_blank" class="xi2"><font color="#FF0000">【清理未活跃
+
+    会员】清理论坛2015年七周年开放注册未活跃会员</font></a></span><em>
+
+    (2015-4-7)</em>
+</li>
+<li><span><a href="http://www.52pojie.cn/thread-
+
+    348968-1-1.html" target="_blank" class="xi2"><font 
+
+    color="#0000FF">BanID：nengzhe2【发布软件捆绑木马修改】
+
+    &nbsp;</font></a></span><em>(2015-4-7)</em>
+</li>
+<li><span><a 
+
+    href="http://www.52pojie.cn/thread-348108-1-1.html" target="_blank" 
+
+    class="xi2"><font color="#FF0000">BanID：Exploits【违反多项论坛规定骗
+
+    人钱财】</font></a></span><em>(2015-4-5)</em>
+</li>
+<li><span><a 
+
+    href="http://www.52pojie.cn/thread-344485-1-1.html" target="_blank" 
+
+    class="xi2"><font color="#0000FF">七周年礼物第四弹：Themida x32/x64 
+
+    v2.3.3.0 CracKed By LCG</font></a></span><em>(2015-3-26)
+
+</em>
+</li>
+<li><span><a href="http://www.52pojie.cn/thread-342125-1-
+
+    1.html" target="_blank" class="xi2"><font color="#0000FF">七周年礼物第
+
+    三弹：【论坛搜索】低调更新，搜索结果更全更准确！
+
+</font></a></span><em>(2015-3-20)</em>
+</li>
+<li><span><a 
+
+    href="http://www.52pojie.cn/thread-341238-1-1.html" target="_blank" 
+
+    class="xi2"><font color="#0000FF">七周年礼物第二弹：【虚拟机】吾爱破解
+
+    论坛专用破解虚拟机发布！</font></a></span><em>(2015-3-18)
+
+</em>
+</li>
+<li><span><a href="http://www.52pojie.cn/thread-340284-1-
+
+    1.html" target="_blank" class="xi2"><font color="#0000FF">七周年礼物第
+
+    一弹：【爱盘】在线破解工具包全新发布！</font></a></span><em>(2015-3-
+
+    16)</em>
+</li>
+<li><span><a href="http://www.52pojie.cn/thread-237199-1
+
+    -1.html" target="_blank" class="xi2"><font color="#0000FF"><b>【警惕】
+
+    近日多个用户论坛账号被盗，请大家加强密码保护！
+
+</b></font></a></span><em>(2014-2-8)</em>
+</li>
+<li><span><a 
+
+    href="http://www.52pojie.cn/thread-148936-1-1.html" target="_blank" 
+
+    class="xi2"><font color="#3C9D40">分享就送5CB，请每位坛友多多支持论坛
+
+</font></a></span><em>(2012-5-15)</em>
+</li>
+<li><span><a 
+
+    href="http://www.52pojie.cn/thread-202287-1-1.html" target="_blank" 
+
+    class="xi2"><font color="#339900"><b>吾爱破解论坛官方微信公众账号
+
+    &nbsp;</b></font></a></span><em>(2013-7-1)</em>
+</li>
+<li><span><a 
+
+    href="http://www.52pojie.cn/misc.php?mod=faq" target="_blank" 
+
+    class="xi2"><font color="#009900">吾爱破解论坛新增站点帮助文档
+
+</font></a></span><em>(2012-11-2)</em>
+</li>
+<li><span><a 
+
+    href="http://www.52pojie.cn/thread-61079-1-1.html" target="_blank" 
+
+    class="xi2"><font color="#009900">呼吁大家发布原创作品添加吾爱破解论坛
+
+    标示!</font></a></span><em>(2010-9-1)</em></li><li><span><a 
+
+    href="http://www.52pojie.cn/forum.php?mod=announcement&amp;id=17" 
+
+    target="_blank" class="xi2">吾爱破解简称为 - [LCG]</a></span><em>
+
+    (2008-9-24)</em></li><li><span><a href="http://www.52pojie.cn/thread-
+
+    555215-1-1.html" target="_blank" class="xi2"><b><font color="#0000FF">
+
+    梁景祯，警察在找你！Ban：huitailang【多次注册马甲发布软件捆绑木马】
+
+</font></b></a></span><em>(2016-11-17)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/thread-552593-1-1.html" target="_blank" 
+
+class="xi2"><b><font color="#0000FF">关于移动和铁通用户无法登录论坛和
+
+上传头像等问题说明</font></b></a></span><em>(2016-11-12)
+
+</em></li><li><span><a href="http://www.52pojie.cn/thread-539039-1-
+
+1.html" target="_blank" class="xi2"><b><font color="#FF0000">【清理未
+
+活跃会员】清理2016年暑假开放注册未活跃会员公告
+
+</font></b></a></span><em>(2016-9-21)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/thread-502278-1-1.html" target="_blank" 
+
+class="xi2"><b><font color="#FF0000">【公告】关于最近多位会员被恶意木
+
+马加密文件</font></b></a></span><em>(2016-5-30)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/thread-493108-1-1.html" target="_blank" 
+
+class="xi2"><b><font color="#FF0000">【清理未活跃会员】清理2016年八周
+
+年开放注册未活跃会员</font></b></a></span><em>(2016-4-28)
+
+</em></li><li><span><a href="http://www.52pojie.cn/thread-490515-1-
+
+1.html" target="_blank" class="xi2"><b><font color="#FF0000">【公告】
+
+禁止微商、手机轰炸机等相关软件的发布</font></b></a></span><em>(2016-4
+
+-20)</em></li><li><span><a href="http://www.52pojie.cn/thread-487743-
+
+1-1.html" target="_blank" class="xi2"><b><font color="#FF0000">【吾爱
+
+破解·2016·安全挑战赛】开始颁奖！（奖池：15万元人民币）
+
+</font></b></a></span><em>(2016-4-12)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/thread-476629-1-1.html" target="_blank" 
+
+class="xi2"><b><font color="#FF0000">【活动】吾爱破解·2016·安全挑战
+
+赛，15万奖金等你拿！</font></b></a></span><em>(2016-3-16)
+
+</em></li><li><span><a href="http://www.52pojie.cn/thread-461340-1-
+
+1.html" target="_blank" class="xi2"><b><font color="#FF0000">BanID：纯
+
+净永远【发布恶意拦截短信APP】</font></b></a></span><em>(2016-2-14)
+
+</em></li><li><span><a href="http://www.52pojie.cn/thread-459097-1-
+
+1.html" target="_blank" class="xi2"><b><font color="#FF0000">BanID：暴
+
+尔丶【发布软件捆绑远控】</font></b></a></span><em>(2016-1-19)
+
+</em></li><li><span><a href="http://www.52pojie.cn/thread-452355-1-
+
+1.html" target="_blank" class="xi2"><b><font color="#FF0000">【净坛行
+
+动】论坛禁止发布任何翻墙软件和违法犯罪程序！
+
+</font></b></a></span><em>(2015-12-30)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/thread-444778-1-1.html" target="_blank" 
+
+class="xi2"><b><font color="#FF0000">【清理未活跃会员】清理论坛2015年
+
+光棍节注册未活跃会员</font></b></a></span><em>(2015-12-11)
+
+</em></li><li><span><a href="http://www.52pojie.cn/thread-441341-1-
+
+1.html" target="_blank" class="xi2"><font color="#339933"><b>【公告】
+
+吾爱破解论坛调整积分方案（2015年12月3日）</b></font></a></span><em>
+
+(2015-12-3)</em></li><li><span><a href="http://www.52pojie.cn/thread-
+
+440309-1-1.html" target="_blank" class="xi2"><b><font 
+
+color="#FF0000">BanID：1529937【发布软件添加盗QQ后门】
+
+</font></b></a></span><em>(2015-11-30)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/thread-427628-1-1.html" target="_blank" 
+
+class="xi2"><b><font color="#FF0000">LCG成员申请规则【2015.11.02】
+
+</font></b></a></span><em>(2015-11-2)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/thread-422379-1-1.html" target="_blank" 
+
+class="xi2"><b><font color="#FF0000">BanID：Ss゛锋子℡和qq412158094【
+
+发布软件捆绑格盘远控木马】</font></b></a></span><em>(2015-10-16)
+
+</em></li><li><span><a href="http://www.52pojie.cn/thread-415844-1-
+
+1.html" target="_blank" class="xi2"><font color="#FF0000">BanID：掘墓
+
+人【发布软件捆绑远控木马】</font></a></span><em>(2015-9-25)
+
+</em></li><li><span><a href="http://www.52pojie.cn/thread-411349-1-
+
+1.html" target="_blank" class="xi2"><b><font color="#FF0000">【公告】
+
+关于禁止自定义头衔与回帖使用超长代码的公告</font></b></a></span><em>
+
+(2015-9-11)</em></li><li><span><a href="http://www.52pojie.cn/thread-
+
+404849-1-1.html" target="_blank" class="xi2"><b><font color="#FF0000">
+
+【清理未活跃会员】清理论坛2015年暑假注册未活跃会员
+
+</font></b></a></span><em>(2015-8-24)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/thread-397406-1-1.html" target="_blank" 
+
+class="xi2"><b><font color="#FF0000">BanID:18234458832【发布恶意锁机程
+
+序】</font></b></a></span><em>(2015-8-7)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/thread-392929-1-1.html" target="_blank" 
+
+class="xi2"><font color="#0000FF">【公告】关于最近灌水贴泛滥情况作如下
+
+公告！</font></a></span><em>(2015-7-29)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/thread-393012-1-1.html" target="_blank" 
+
+class="xi2"><font color="#0000FF">关于打击邀请码贩卖 帐号共享 附件代下
+
+官方公告！</font></a></span><em>(2015-7-29)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/thread-391681-1-1.html" target="_blank" 
+
+class="xi2"><font color="#FF0000">关于吾爱破解论坛被抄袭一事官方说明！
+
+</font></a></span><em>(2015-7-27)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/thread-377565-1-1.html" target="_blank" 
+
+class="xi2"><font color="#0000FF">BanID：我来看看来哦 【发布软件捆绑远
+
+控木马】</font></a></span><em>(2015-6-26)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/thread-370860-1-1.html" target="_blank" 
+
+class="xi2"><font color="#0000FF">关于《投诉举报区》近况、感悟和行动
+
+</font></a></span><em>(2015-6-5)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/thread-369146-1-1.html" target="_blank" 
+
+class="xi2"><font color="#0000FF">【注意】对于近期几项常见违规行为公示
+
+！</font></a></span><em>(2015-6-2)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/thread-350397-1-1.html" target="_blank" 
+
+class="xi2"><font color="#0000FF">七周年礼物第五弹之一：吾爱破解专用版
+
+Ollydbg</font></a></span><em>(2015-4-10)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/thread-349073-1-1.html" target="_blank" 
+
+class="xi2"><b><font color="#FF0000">吾爱破解论坛官方入门教学培训第一
+
+期开始啦！&nbsp;</font></b></a></span><em>(2015-4-7)
+
+</em></li><li><span><a href="http://www.52pojie.cn/thread-349051-1-
+
+1.html" target="_blank" class="xi2"><font color="#FF0000">【清理未活跃
+
+会员】清理论坛2015年七周年开放注册未活跃会员</font></a></span><em>
+
+(2015-4-7)</em></li><li><span><a href="http://www.52pojie.cn/thread-
+
+348968-1-1.html" target="_blank" class="xi2"><font 
+
+color="#0000FF">BanID：nengzhe2【发布软件捆绑木马修改】
+
+&nbsp;</font></a></span><em>(2015-4-7)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/thread-348108-1-1.html" target="_blank" 
+
+class="xi2"><font color="#FF0000">BanID：Exploits【违反多项论坛规定骗
+
+人钱财】</font></a></span><em>(2015-4-5)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/thread-344485-1-1.html" target="_blank" 
+
+class="xi2"><font color="#0000FF">七周年礼物第四弹：Themida x32/x64 
+
+v2.3.3.0 CracKed By LCG</font></a></span><em>(2015-3-26)
+
+</em></li><li><span><a href="http://www.52pojie.cn/thread-342125-1-
+
+1.html" target="_blank" class="xi2"><font color="#0000FF">七周年礼物第
+
+三弹：【论坛搜索】低调更新，搜索结果更全更准确！
+
+</font></a></span><em>(2015-3-20)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/thread-341238-1-1.html" target="_blank" 
+
+class="xi2"><font color="#0000FF">七周年礼物第二弹：【虚拟机】吾爱破解
+
+论坛专用破解虚拟机发布！</font></a></span><em>(2015-3-18)
+
+</em></li><li><span><a href="http://www.52pojie.cn/thread-340284-1-
+
+1.html" target="_blank" class="xi2"><font color="#0000FF">七周年礼物第
+
+一弹：【爱盘】在线破解工具包全新发布！</font></a></span><em>(2015-3-
+
+16)</em></li><li><span><a href="http://www.52pojie.cn/thread-237199-1
+
+-1.html" target="_blank" class="xi2"><font color="#0000FF"><b>【警惕】
+
+近日多个用户论坛账号被盗，请大家加强密码保护！
+
+</b></font></a></span><em>(2014-2-8)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/thread-148936-1-1.html" target="_blank" 
+
+class="xi2"><font color="#3C9D40">分享就送5CB，请每位坛友多多支持论坛
+
+</font></a></span><em>(2012-5-15)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/thread-202287-1-1.html" target="_blank" 
+
+class="xi2"><font color="#339900"><b>吾爱破解论坛官方微信公众账号
+
+&nbsp;</b></font></a></span><em>(2013-7-1)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/misc.php?mod=faq" target="_blank" 
+
+class="xi2"><font color="#009900">吾爱破解论坛新增站点帮助文档
+
+</font></a></span><em>(2012-11-2)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/thread-61079-1-1.html" target="_blank" 
+
+class="xi2"><font color="#009900">呼吁大家发布原创作品添加吾爱破解论坛
+
+标示!</font></a></span><em>(2010-9-1)</em></li><li><span><a 
+
+href="http://www.52pojie.cn/forum.php?mod=announcement&amp;id=17" 
+
+target="_blank" class="xi2">吾爱破解简称为 - [LCG]</a></span><em>
+
+(2008-9-24)</em></li>
+</ul>
+</div>
+<script type="text/javascript">announcement();</script>
+</div>
+
+<div class="container-fluid" style="padding-left: 30px">
+    <p style="display: inline-block;">
+        <a href="#" class="iconfont blue_a">&#xe6fc</a>
+        &nbsp今日:
+        <em>9481</em>
+        <span> | </span>
+        昨日:
+        <em>10589</em>
+        <span> | </span>
+        帖子:
+        <em>12588948</em>
+        <span> | </span>
+        会员:
+        <em>782483</em>
+        <span> | </span>
+        欢迎新会员: 
+        <em>zhanmin.zheng </em>
+    </p>
+    <a href="http://www.52pojie.cn/forum.php?mod=guide&view=new" class="blue_a" style="float: right; padding-top: 10px">最新回复</a>
+    <a href="javascript:" style="float: right;"><img src="http://www.52pojie.cn/source/plugin/csu_wx/img/wx_jqr.gif"></a>
+</div>
+
+<div class="container-fluid" style="border: 1px solid #CDCDCD; border-top: none; padding:0px">
+    <div  style="background-color: #E5EDF2; border:1px solid #C2D5E3; border-width: 1px 0px; height: 30px; padding-left: 30px; overflow: hidden;">
+        <a href="#" class="blue_a" style="float: left;line-height: 30px">【PC样本分析】py可执行程序分析</a>
+        <table style="float: right; height: 34px">
+            <tr>
+                <td id="quick_link">
+                    <a href="#" style="background: url(http://bdimg.share.baidu.com/static/api/img/share/icons_1_16.png?v=01d441d0.png) ;background-repeat: no-repeat; padding-top: 2px;">&nbsp</a>
+                    <a href="#" style="background: url(http://bdimg.share.baidu.com/static/api/img/share/icons_1_16.png?v=01d441d0.png) ;background-repeat: no-repeat; padding-top: 2px;background-position: 0px -52px">QQ空间&nbsp</a>
+                    <a href="#" style="background: url(http://bdimg.share.baidu.com/static/api/img/share/icons_1_16.png?v=01d441d0.png) ;background-repeat: no-repeat; padding-top: 2px; background-position: 0px -1612px">微信</a>
+                    <a href="#" style="background: url(http://bdimg.share.baidu.com/static/api/img/share/icons_1_16.png?v=01d441d0.png) ;background-repeat: no-repeat; padding-top: 2px; background-position: 0px -260px">腾讯微博&nbsp</a>
+                    <a href="#" style="background: url(http://bdimg.share.baidu.com/static/api/img/share/icons_1_16.png?v=01d441d0.png) ;background-repeat: no-repeat; padding-top: 2px; background-position: 0px -104px">新浪微博&nbsp</a>
+                    <a href="#" style="background: url(http://bdimg.share.baidu.com/static/api/img/share/icons_1_16.png?v=01d441d0.png) ; background-repeat: no-repeat; padding-top: 2px; background-position: 0px -2338px">邮件分享&nbsp</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <table width=100%>
+            <tr id="headerline">
+                <th>新鲜出炉（更多）</th>
+                <th>最新关注（更多）</th>
+                <th>人气热门（更多）</th>
+                <th>精彩采撷（更多）</th>
+                <th style="border-right: none">活跃榜</th>
+            </tr>
+            <tr id="tr_rank">
+                <td style="padding:5px">
+                    <div class="rank">
+                        <div class="rank1"><a href="#">&nbsp使用爱奇艺搜索源码</a></div>
+                        <div class="rank2"><a href="#">&nbsp天天看高清影视 6.6.7.20 去广告精简版</a></div>
+                        <div class="rank3"><a href="#">&nbsp算你狠全能计算器1.5.0 去广告修改版</a></div>
+                        <div class="rank4"><a href="#">&nbsp一款PC的锁机软件，朋友电脑被锁了。</a></div>
+                        <div class="rank5"><a href="#">&nbspDNF 天笔12-29A 版 （此贴暂时不会长</a></div>
+                        <div class="rank6"><a href="#">&nbsp网易有道超级计算器—无广告离线的计</a></div>
+                        <div class="rank7"><a href="#">&nbsp求助！网页恶意代码样本</a></div>
+                        <div class="rank8"><a href="#">&nbsp【自用感觉很好，特地搬砖】下载利</a></div>
+                        <div class="rank9"><a href="#">&nbsp看大片没钱&#128557;怎么办&#128561</a></div>
+                        <div class="rank10"><a href="#">&nbsp一个很强大的看片神器</a></div>
+                    </div>
+                </td>
+                <td style="padding:5px">
+                    <div class="rank">
+                        <div class="rank1">
+                            <a href="#">&nbsplol无限视距V6.25</a>
+                        </div>
+                        <div class="rank2">
+                            <a href="#">&nbsp【自用感觉很好，特地搬砖】下载利器！IDM v6.</a>
+                        </div>
+                        <div class="rank3">
+                            <a href="#">&nbspMagnetSearch磁力链接搜索工具v2.0中文绿色版</a></div>
+                            <div class="rank4">
+                                <a href="#">&nbsp一款PC的锁机软件，朋友电脑被锁了。在线等，</a>
+                            </div>
+                            <div class="rank5">
+                                <a href="#">&nbspDNF 天笔12-29A 版 （此贴暂时不会长期更新）</a>
+                            </div>
+                            <div class="rank6">
+                                <a href="#">&nbsp楼月微信聊天记录导出恢复助手v4.5风吹屁屁凉</a>
+                            </div>
+                            <div class="rank7">
+                                <a href="#">&nbsp分享个自己使用的百度云与迅雷</a>
+                            </div>
+                            <div class="rank8">
+                                <a href="#">&nbsp使用爱奇艺搜索源码</a>
+                            </div>
+                            <div class="rank9">
+                                <a href="#">&nbsp正版价值50美刀的GiliSoft Video Editor 7.4-强大dsahdskjahkaj</a>
+                            </div>
+                            <div class="rank10">
+                                <a href="#">&nbsp精品抠图软件</a>
+                            </div>                          
+                        </div>
+                    </td>
+                    <td style="padding:5px">
+                        <div class="rank">
+                            <div class="rank1">
+                                <a href="#">&nbsp饿了么 新用户下单软件 Crackd By:altTab</a>
+                            </div>
+                            <div class="rank2">
+                                <a href="#">&nbspPPTV会员注册机（更新至1.2最终版-可领13个月</a>
+                            </div>
+                            <div class="rank3">
+                                <a href="#">&nbspV解析1.85（下载VIP 付费 视频）</a>
+                            </div>
+                            <div class="rank4">
+                                <a href="#">&nbsp友科订票助手企业版V2.471最新破解版</a>
+                            </div>
+                            <div class="rank5">
+                                <a href="#">&nbsp【软件】磁力资源搜索工具【附送两款同类软</a>
+                            </div>
+                            <div class="rank6">
+                                <a href="#">&nbsp需联网游戏---大繁殖时代 （更新无偿购买钻石物</a>
+                            </div>
+                            <div class="rank7">
+                                <a href="#">&nbsp腾讯手游【全民枪王】无限子弹,不死破解版</a>
+                            </div>
+                            <div class="rank8">
+                                <a href="#">&nbsp【圣诞节福利】价值20元 热血仙境完整端可开外网，楼主已亲测！</a>
+                            </div>
+                            <div class="rank9">
+                                <a href="#">&nbsp(安卓版)多功能助手</a>
+                            </div>
+                            <div class="rank10">
+                                <a href="#">&nbsp爱看影院整站第二版网站源码开源 万部电影 自动</a>                   
+                            </div>
+                        </td>
+                        <td id="td_strong" style="padding:5px">
+                            <div class="rank">
+                                <div class="rank1">
+                                    <a href="#">&nbsppy可执行程序分析</a>
+
+                                </div>
+                                <div class="rank2">
+                                    <a href="#">&nbsp百分百企业名录8.3网络验证逆向过程</a>
+                                </div>
+                                <div class="rank3">
+                                    <a href="#">&nbsp修改源码实现全局(无需root)注入躲开注入检测</a>
+                                </div>
+                                <div class="rank4">
+                                    <a href="#">&nbsp带你开发一款给Apk中自动注入代码工具icodet</a>
+                                </div>
+                                <div class="rank5">
+                                    <a href="#">&nbspWebCruiserWVS v3.5.3 Enterprise 破解及注</a>
+                                </div>
+                                <div class="rank6">
+                                    <a href="#">&nbspxeirib.exe样本分析</a>
+                                </div>
+                                <div class="rank7">
+                                    <a href="#">&nbspNavicat Premium11无限试用破解过程</a>
+                                </div>
+                                <div class="rank8">
+                                    <a href="#">&nbsp【练习】IDA调试Android native（Crackm</a>
+                                </div>
+                                <div class="rank9">
+                                    <a href="#">&nbspFreefloat FTP Server 1.0 溢出漏洞分析（适</a>
+                                </div>
+                                <div class="rank10">
+                                    <a href="#">&nbsp梁景祯，警察在找你！Ban：huitailang【多次注册马甲发布软件捆 ...</a>          
+                                </div>
+                            </td>
+                            <td style="padding:5px">
+                                <div class="rank">
+                                    <div class="rank1">
+                                        <span>[78贴]</span>
+                                        <a href="#">&nbsp風走過的路</a>
+                                    </div>
+                                    <div class="rank2">
+                                        <span>[75贴]</span>
+                                        <a href="#">&nbsp无法无天2020</a>
+                                    </div>
+                                    <div class="rank3">
+                                        <span>[62贴]</span>
+                                        <a href="#">&nbsp屌絲钕</a>
+                                    </div>
+                                    <div class="rank4">
+                                        <span>[46贴]</span>
+                                        <a href="#">&nbsp牡牛</a>
+                                    </div>
+                                    <div class="rank5">
+                                        <span>[37贴]</span>
+                                        <a href="#">&nbspLnfinite</a>
+                                    </div>
+                                    <div class="rank6">
+                                        <span>[29贴]</span>
+                                        <a href="#">&nbsp咚次哒次</a>
+                                    </div>
+                                    <div class="rank7">
+                                        <span>[26贴]</span>
+                                        <a href="#">&nbsp610100</a>
+                                    </div>
+                                    <div class="rank8">
+                                        <span>[25贴]</span>
+                                        <a href="#">&nbsp磨人的小妖精</a>
+                                    </div>
+                                    <div class="rank9">
+                                        <span>[23贴]</span>
+                                        <a href="#">&nbsp超管</a>
+                                    </div>
+                                    <div class="rank10">
+                                        <span>[20贴]</span>
+                                        <a href="#">&nbspzaqw0001</a>
+                                    </div>               
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="container-fluid" style="border: 1px solid #CDCDCD; border-top: none; padding:0px">
+                <div  style="background-color: #E5EDF2; border:1px solid #C2D5E3; border-width: 1px 0px; height: 30px; padding-left: 30px; overflow: hidden; ">
+                    <a href="http://www.52pojie.cn/forum.php?gid=26" style="font:bold 12px Tahoma,Helvetica,SimSun,sans-serif;line-height: 30px; color: #369">【 ＬＣＧ 】【 ＬＳＧ 】</a>
+                    <img src="http://www.52pojie.cn/static/image/common/collapsed_no.gif" style="float: right;margin: 6px 10px; cursor: pointer;" title="收起/展开" alt="收起/展开" onclick="toggle_collapse('category_1')";>
+                    <span style="float: right;line-height: 30px;">
+                        分区版主：
+                        <a href="http://www.52pojie.cn/home.php?mod=space&username=Hmily" class="blue_a">Hmily</a>
+                    </span>
+                </div>
+                <div id="category_1" style="padding:0px 10px; height: 74px">
+                    <table style="width: 100%; height: 74px;">
+                        <td style="padding-top: 10px;">
+                            <div style="float: left;">
+                                <a href="http://www.52pojie.cn/forun-28-1.html">
+                                    <img src="http://www.52pojie.cn/static/image/common/forum.gif" alt="『LCG Area』">
+                                </a>
+                            </div>
+                            <dl style="padding-left:15px; margin-left: 31px">
+                                <dt>
+                                    <a href="http://www.52pojie.cn/forun-28-1.html">『LCG Area』</a>
+                                    <em>(2)</em>
+                                </dt>
+                                <dd>
+                                    <span>主题：233, 帖数：1万</span>
+                                </dd>
+                                <dd>
+                                    <a href="http://www.52pojie.cn/forum.php?mod=redirect&amp;tid=238677&amp;goto=lastpost#lastpost">PhoneClean Pro v3.2.1 CracKed  ...</a>
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=%B0%A1%C5%B5">2016-12-29 17:15 啊诺</a>
+                                </dd>
+                            </dl>
+                        </td>
+                        <td style="padding-top: 10px;">
+                            <div style="float: left;">
+                                <a href="http://www.52pojie.cn/forun-28-1.html">
+                                    <img src="http://www.52pojie.cn/static/image/common/forum.gif" alt="『LCG Area』">
+                                </a>
+                            </div>
+                            <dl style="padding-left:15px; margin-left: 31px">
+                                <dt>
+                                    <a href="http://www.52pojie.cn/forun-28-1.html">『LCG Area』</a>
+                                    <em>(2)</em>
+                                </dt>
+                                <dd>
+                                    <span>主题：51, 帖数：2471</span>
+                                </dd>
+                                <dd>
+                                    <a href="http://www.52pojie.cn/forum.php?mod=redirect&tid=128828&goto=lastpost#lastpost">国外网马探秘 - Blackhole Explo ...</a>
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=%B0%A1%C5%B5">2015-1-29 14:20 独行浪客</a>
+                                </dd>
+                            </dl>
+                        </td>
+                    </table>
+                </div>
+                <div  style="background-color: #E5EDF2; border:1px solid #C2D5E3; border-width: 1px 0px; height: 30px; padding-left: 30px; overflow: hidden; ">
+                    <a href="http://www.52pojie.cn/forum.php?gid=1" style="font:bold 12px Tahoma,Helvetica,SimSun,sans-serif;line-height: 30px; color: #369">【 软件安全 】</a>
+                    <img src="http://www.52pojie.cn/static/image/common/collapsed_no.gif" style="float: right;margin: 6px 10px; cursor: pointer;" title="收起/展开" alt="收起/展开" onclick="toggle_collapse('category_2')";>
+                    <span style="float: right;line-height: 30px;">
+                        分区版主：
+                        <a href="http://www.52pojie.cn/home.php?mod=space&username=ximo" class="blue_a">ximo</a>
+                        <a href="http://www.52pojie.cn/home.php?mod=space&username=Kido" class="blue_a">Kido</a>
+                        <a href="http://www.52pojie.cn/home.php?mod=space&username=Sound" class="blue_a">Sound</a>
+                    </span>
+                </div>
+                <div class="software_safe" style="padding:10px" id="category_2">
+                    <table>
+                        <tr>
+                            <td class="ts_1">
+                                <a href="http://www.52pojie.cn/forun-2-1.html">
+                                    <img src="http://www.52pojie.cn/static/image/common/forum_new.gif" alt="『原创发布区』">
+                                </a>
+                            </td>
+                            <td class="ts_2">
+                                <h7>
+                                    <a href="http://www.52pojie.cn/forum-2-1.html" style="color: #F30012;font-weight: bold">『原创发布区』</a><span style="color: #F26C4F">(1483)</span>
+                                </h7><br>
+                                <font color="Red">◇吾爱破解坛友原创作品展示，包含Windows程序注册机、破解补丁、破解版、绿色去广告版、汉化版等原创工具，也有Android、iOS和Mac OS程序相应的内购破解和去广告补丁！◇</font>
+                                <p>版主：
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=Peace" class="blue_a">Peace,</a>
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=Hmily" class="blue_a">Hmily,</a>
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=spguangz" class="blue_a">spguangz</a>
+                                </p>
+                            </td>
+                            <td class="ts_3">
+                                <span>1万/311万</span>
+                            </td>
+                            <td class="ts_4">
+                                <div class="ds">
+                                    <a href="http://www.52pojie.cn/forum.php?mod=redirect&tid=568353&goto=lastpost#lastpost" class="blue_a">友科订票助手企业版V2.471最新破 ...</a>
+                                    <span>2016-12-30 16:44 财迷</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="tr_dashed">
+                            <td class="ts_1">
+                                <a href="http://www.52pojie.cn/forum-5-1.html">
+                                    <img src="http://www.52pojie.cn/static/image/common/forum_new.gif" alt="『脱壳破解区』">
+                                </a>
+                            </td>
+                            <td class="ts_2">
+                                <h7>
+                                    <a href="http://www.52pojie.cn/forum-5-1.html" style="color: #00F;font-weight: bold">『脱壳破解区』</a><span style="color: #F26C4F">(96)</span>
+                                </h7><br>
+                                ◇讨论Windows软件脱壳分析、软件破解分析、软件绿化分析、代码逆向改造、虚拟机加密分析，也包括Mac OS等其他平台程序破解逆向分析一切尽在此！◇<br>
+                                <span>子版块：
+                                    <a href="http://www.52pojie.cn/forum-75-1.html" style="color: #00F">『脱壳破解讨论求助区』</a>
+                                    <a href="http://www.52pojie.cn/forum-22-1.html">『UnPackMe◇CrackMe◇KeyGenMe◇ReverseMe』</a>
+                                    <a href="http://www.52pojie.cn/forum-68-1.html" style="color: #00F">『教学培训区』</a>
+                                </span>
+                                <p>版主：
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=%D0%A1%C9%FA%CE%D2%C5%C2%C5%C2" class="blue_a"><strong>小生我怕怕,</strong></a>
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=L4Nce" class="blue_a"><strong>L4Nce,</strong></a>
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=Sound" class="blue_a"><strong>Sound</strong></a>
+                                </p>
+                            </td>
+                            <td class="ts_3">
+                                <span>2万/46万</span>
+                            </td>
+                            <td class="ts_4">
+                                <div class="ds">
+                                    <a href="http://www.52pojie.cn/forum.php?mod=redirect&tid=569185&goto=lastpost#lastpost" class="blue_a">求大神帮忙</a>
+                                    <span>2016-12-30 16:45 feihongguo</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="tr_dashed">
+                            <td class="ts_1">
+                                <a href="http://www.52pojie.cn/forum-65-1.html">
+                                    <img src="http://www.52pojie.cn/static/image/common/forum_new.gif" alt="『移动安全区』">
+                                </a>
+                            </td>
+                            <td class="ts_2">
+                                <h7>
+                                    <a href="http://www.52pojie.cn/forum-65-1.html" style="color: #00F;font-weight: bold">『移动安全区』</a><span style="color: #F26C4F">(20)</span>
+                                </h7><br>
+                                ◇讨论Android软件破解分析、Android软件绿化分析、Android系统安全分析、Android软件加密分析，当然iOS等移动程序破解逆向分析一切尽在此！◇<br>
+                                <span>子版块：
+                                    <a href="http://www.52pojie.cn/forum-73-1.html" style="color: #00F">『移动安全讨论求助区』</a>
+                                    <a href="http://www.52pojie.cn/forum-69-1.html">『Android UnPackMe◇CrackMe◇KeyGenMe◇ReverseMe』</a>
+                                </span>
+                                <p>版主：
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=%CA%C0%CA%C2%B7%B1%BB%AA%BD%D4%B3%C9%BF%D5" class="blue_a"><strong>世事繁华皆成空,</strong></a>
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=spguangz" class="blue_a"><strong>spguangz</strong></a>
+                                </p>
+                            </td>
+                            <td class="ts_3">
+                                <span>1179/4万</span>
+                            </td>
+                            <td class="ts_4">
+                                <div class="ds">
+                                    <a href="http://www.52pojie.cn/forum.php?mod=redirect&tid=568483&goto=lastpost#lastpost" class="blue_a">smalidea的坑，注意了</a>
+                                    <span>2016-12-30 16:44 wangzery</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="tr_dashed">
+                            <td class="ts_1">
+                                <a href="http://www.52pojie.cn/forum-59-1.html">
+                                    <img src="http://www.52pojie.cn/static/image/common/forum_new.gif" alt="『软件调试区』">
+                                </a>
+                            </td>
+                            <td class="ts_2">
+                                <h7>
+                                    <a href="http://www.52pojie.cn/forum-59-1.html" style="color: #00F;font-weight: bold">『软件调试区』</a><span style="color: #F26C4F">(10)</span>
+                                </h7><br>
+                                ◇讨论操作系统底层或系统软件的漏洞分析调试、也包含游戏安全等相关话题！◇<br>
+                                <p>版主：
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=Hmily" class="blue_a">Hmily</a>
+
+                                </p>
+                            </td>
+                            <td class="ts_3">
+                                <span>238/7744</span>
+                            </td>
+                            <td class="ts_4">
+                                <div class="ds">
+                                    <a href="http://www.52pojie.cn/forum.php?mod=redirect&tid=317074&goto=lastpost#lastpost" class="blue_a">漏洞挖掘方法之静态扫描+经典栈 ...</a>
+                                    <span>2016-12-30 16:44 wangzery</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="tr_dashed">
+                            <td class="ts_1">
+                                <a href="http://www.52pojie.cn/forum-24-1.html">
+                                    <img src="http://www.52pojie.cn/static/image/common/forum_new.gif" alt="『编程语言区』">
+                                </a>
+                            </td>
+                            <td class="ts_2">
+                                <h7>
+                                    <a href="http://www.52pojie.cn/forum-24-1.html" style="font-weight: bold">『编程语言区』</a><span style="color: #F26C4F">(294)</span>
+                                </h7><br>
+                                ◇学习编程探讨编程技巧，共同分享程序源代码 ◇<br>
+                                <span>子版块：
+                                    <a href="http://www.52pojie.cn/forum-74-1.html" style="color: #00F">『编程语言讨论求助区』</a>
+                                    <a href="http://www.52pojie.cn/forum-37-1.html">『电子书屋』</a>
+                                </span>
+                                <p>版主：
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=%B7%E7%CB%AA" class="blue_a"><strong>风霜,</strong></a>
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=Cizel" class="blue_a"><strong>Cizel</strong></a>
+                                </p>
+                            </td>
+                            <td class="ts_3">
+                                <span>1万/26万</span>
+                            </td>
+                            <td class="ts_4">
+                                <div class="ds">
+                                    <a href="http://www.52pojie.cn/forum.php?mod=redirect&tid=568453&goto=lastpost#lastpost" class="blue_a">爱看影院整站第二版网站源码开源 ...</a>
+                                    <span>2016-12-30 16:42 z136115</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="tr_dashed">
+                            <td class="ts_1">
+                                <a href="http://www.52pojie.cn/forum-6-1.html">
+                                    <img src="http://www.52pojie.cn/static/image/common/forum_new.gif" alt="『动画发布区』">
+                                </a>
+                            </td>
+                            <td class="ts_2">
+                                <h7>
+                                    <a href="http://www.52pojie.cn/forum-6-1.html" style="font-weight: bold">『动画发布区』</a><span style="color: #F26C4F">(59)</span>
+                                </h7><br>
+                                ◇软件脱壳、软件汉化、软件破解相关动画教程，学习心得分享。在这里我们可以携手并进，是我们汲取知识的伟大航路! ◇<br>
+                                <span>子版块：
+                                    <a href="hhttp://www.52pojie.cn/forum-21-1.html">『动画精品转载区』</a>
+                                    <a href="http://www.52pojie.cn/forum-76-1.html" style="color: #F00">『吾爱破解动画大赛』</a>
+                                </span>
+                            </td>
+                            <td class="ts_3">
+                                <span>6361/46万</span>
+                            </td>
+                            <td class="ts_4">
+                                <div class="ds">
+                                    <a href="http://www.52pojie.cn/forum.php?mod=redirect&tid=569148&goto=lastpost#lastpost" class="blue_a">爱高清视频记录【玄奥玄空择日v1.1 ...</a>
+                                    <span>2016-12-30 16:34 loyal</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="tr_dashed">
+                            <td class="ts_1">
+                                <a href="http://www.52pojie.cn/forum-4-1.html">
+                                    <img src="http://www.52pojie.cn/static/image/common/forum_new.gif" alt="『逆向资源区』">
+                                </a>
+                            </td>
+                            <td class="ts_2">
+                                <h7>
+                                    <a href="http://www.52pojie.cn/forum-4-1.html" style="font-weight: bold; color: Green">『逆向资源区』</a><span style="color: #F26C4F">(18)</span>
+                                </h7><br>
+                                ◇[加密解密]相关软件发布区，包含最新最全的软件加密解密相关工具，工欲善其事必先利其器！◇<br>
+                                <span>子版块：
+                                    <a href="http://www.52pojie.cn/forum-46-1.html">『脚本收藏区』</a>
+                                    <a href="http://www.52pojie.cn/forum-43-1.html">『外文翻译区』</a>
+                                </span>
+                                <p>版主：
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=Hmily" class="blue_a">Hmily</a>
+                                </p>
+                            </td>
+                            <td class="ts_3">
+                                <span>3845/18万</span>
+                            </td>
+                            <td class="ts_4">
+                                <div class="ds">
+                                    <a href="http://www.52pojie.cn/forum.php?mod=redirect&tid=569184&goto=lastpost#lastpost" class="blue_a">【原创破解】010Editor v702  ma ...</a>
+                                    <span>2016-12-30 16:45 Hoimk</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="tr_dashed">
+                            <td class="ts_1">
+                                <a href="http://www.52pojie.cn/forum-16-1.html">
+                                    <img src="http://www.52pojie.cn/static/image/common/forum_new.gif" alt="『精品软件区』">
+                                </a>
+                            </td>
+                            <td class="ts_2">
+                                <h7>
+                                    <a href="http://www.52pojie.cn/forum-16-1.html" style="font-weight: bold">『精品软件区』</a><span style="color: #F26C4F">(1930)</span>
+                                </h7><br>
+                                ◇[加密解密]相关软件发布区，包含最新最全的软件加密解密相关工具，工欲善其事必先利其器！◇<br>
+                                ◇这里不但有丰富的PC软件，还有安卓、iPhone等手机软件也统统包含哦！<br>
+                                <p>版主：
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=qwe2913207" class="blue_a">qwe2913207</a>
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=%B7%B1%BB%AA%C2%E4%C4%BB" class="blue_a">繁华落幕</a>
+                                </p>
+                            </td>
+                            <td class="ts_3">
+                                <span>9万/335万</span>
+                            </td>
+                            <td class="ts_4">
+                                <div class="ds">
+                                    <a href="http://www.52pojie.cn/forum.php?mod=redirect&tid=569175&goto=lastpost#lastpost" class="blue_a">梦三国某全图之另类调用破解法。 ...</a>
+                                    <span>2016-12-30 16:46 xiaobai007</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="tr_dashed">
+                            <td class="ts_1">
+                                <a href="http://www.52pojie.cn/forum-8-1.html">
+                                    <img src="http://www.52pojie.cn/static/image/common/forum_new.gif" alt="『悬赏问答区』">
+                                </a>
+                            </td>
+                            <td class="ts_2">
+                                <h7>
+                                    <a href="http://www.52pojie.cn/forum-8-1.html" style="font-weight: bold">『悬赏问答区』</a><span style="color: #F26C4F">(294)</span>
+                                </h7><br>
+                                ◇富于智慧和温馨的互助乐园，帮助需要帮助的人!◇<br>
+                                <p>版主：
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=%D0%F9%C9%D9" class="blue_a">轩少,</a>
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=kuwo911" class="blue_a">kuwo911</a>
+                                </p>
+                            </td>
+                            <td class="ts_3">
+                                <span>4万/45万</span>
+                            </td>
+                            <td class="ts_4">
+                                <div class="ds">
+                                    <a href="http://www.52pojie.cn/forum.php?mod=redirect&tid=569082&goto=lastpost#lastpost" class="blue_a">寻一言情小说，要完整全部章节！</a>
+                                    <span>2016-12-30 16:46 叨叨客</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div  style="background-color: #E5EDF2; border:1px solid #C2D5E3; border-width: 1px 0px; height: 30px; padding-left: 30px; overflow: hidden; ">
+                    <a href="http://www.52pojie.cn/forum.php?gid=49" style="font:bold 12px Tahoma,Helvetica,SimSun,sans-serif;line-height: 30px; color: #369">【 病毒分析 】</a>
+                    <img src="http://www.52pojie.cn/static/image/common/collapsed_no.gif" style="float: right;margin: 6px 10px; cursor: pointer;" title="收起/展开" alt="收起/展开" onclick="toggle_collapse('category_3')";>
+                    <span style="float: right;line-height: 30px;">
+                        分区版主：
+                        <a href="http://www.52pojie.cn/home.php?mod=space&username=willJ" class="blue_a">willJ</a>
+                    </span>
+                </div>
+                <div class="software_safe" style="padding:10px" id="category_3">
+                    <table width=100%>
+                        <tr>
+                            <td class="ts_1">
+                                <a href="http://www.52pojie.cn/forun-32-1.html">
+                                    <img src="http://www.52pojie.cn/static/image/common/forum_new.gif" alt="『病毒分析区区』">
+                                </a>
+                            </td>
+                            <td class="ts_2">
+                                <h7>
+                                    <a href="http://www.52pojie.cn/forum-32-1.html" style="color: #00F;font-weight: bold">『病毒分析区』</a><span style="color: #F26C4F">(10)</span>
+                                </h7><br>
+                                <font color="#00F">◇分析研究病毒木马技术，预防病毒木马，查杀病毒木马◇</font><br>
+                                <span>版主：
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=willJ" class="blue_a">willJ</a>
+                                </span>
+                            </td>
+                            <td class="ts_3">
+                                <span>853/2万</span>
+                            </td>
+                            <td class="ts_4">
+                                <div class="ds">
+                                    <a href="http://www.52pojie.cn/forum.php?mod=redirect&tid=264219&goto=lastpost#lastpost" class="blue_a">友黑客可以让你不知不觉连上他的Wi ......</a>
+                                    <span>2016-12-30 14:12 dxdeng</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="tr_dashed">
+                            <td class="ts_1">
+                                <a href="http://www.52pojie.cn/forun-50-1.html">
+                                    <img src="http://www.52pojie.cn/static/image/common/forum_new.gif" alt="『病毒救援区』">
+                                </a>
+                            </td>
+                            <td class="ts_2">
+                                <h7>
+                                    <a href="http://www.52pojie.cn/forum-50-1.html" style="font-weight: bold">『病毒救援区』</a><span style="color: #F26C4F">(73)</span>
+                                </h7><br>
+                                ◇你的计算机又受到病毒的侵扰使你不知所措了？不要着急，让我们一起帮助你解决问题！◇<br>
+                            </td>
+                            <td class="ts_3">
+                                <span>2101/3万</span>
+                            </td>
+                            <td class="ts_4">
+                                <div class="ds">
+                                    <a href="http://www.52pojie.cn/forum.php?mod=redirect&tid=569403&goto=lastpost#lastpost" class="blue_a">C盘根目录下面有个video0.dat删 ...</a>
+                                    <span>2016-12-31 19:42<a href="http://www.52pojie.cn/home.php?mod=space&username=missmin">missmin</a></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="tr_dashed">
+                            <td class="ts_1">
+                                <a href="http://www.52pojie.cn/forun-32-1.html">
+                                    <img src="http://www.52pojie.cn/static/image/common/forum_new.gif" alt="『安全工具区』">
+                                </a>
+                            </td>
+                            <td class="ts_2">
+                                <h7>
+                                    <a href="http://www.52pojie.cn/forum-32-1.html" style="color: Green;font-weight: bold">『安全工具区』</a><span style="color: #F26C4F">(3)</span>
+                                </h7><br>
+                                ◇工欲善其事 必先利其器，从这里能找到你想要的利器◇<br>
+                                <span>版主：
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=Hmily" class="blue_a">Hmily</a>
+                                </span>
+                            </td>
+                            <td class="ts_3">
+                                <span>332/2万</span>
+                            </td>
+                            <td class="ts_4">
+                                <div class="ds">
+                                    <a href="http://www.52pojie.cn/forum.php?mod=redirect&tid=569029&goto=lastpost#lastpost" class="blue_a">密码库管理器企业版8.0 中文企业 ...</a>
+                                    <span>2016-12-31 15:08<a href="http://www.52pojie.cn/home.php?mod=space&username=safer">safer</a></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div  style="background-color: #E5EDF2; border:1px solid #C2D5E3; border-width: 1px 0px; height: 30px; padding-left: 30px; overflow: hidden; ">
+                    <a href="http://www.52pojie.cn/forum.php?gid=49" style="font:bold 12px Tahoma,Helvetica,SimSun,sans-serif;line-height: 30px; color: #369">【 活动策划专区 】</a>
+                    <img src="http://www.52pojie.cn/static/image/common/collapsed_no.gif" style="float: right;margin: 6px 10px; cursor: pointer;" title="收起/展开" alt="收起/展开" onclick="toggle_collapse('category_4')";>
+                </div>
+                <div class="software_safe" style="padding:0px 10px; height: 74px" id="category_4">
+                    <table style="width: 100%;">
+                        <td style="padding-top: 10px;">
+                            <div style="float: left;">
+                                <a href="http://www.52pojie.cn/forun-28-1.html">
+                                    <img src="http://www.52pojie.cn/static/image/common/forum.gif" alt="『T恤活动作品区』">
+                                </a>
+                            </div>
+                            <dl style="padding-left:15px; margin-left: 31px">
+                                <dt>
+                                    <a href="http://www.52pojie.cn/forum-62-1.html">『T恤活动作品区』</a>
+                                </dt>
+                                <dd>
+                                    <span>主题：81, 帖数：2927</span>
+                                </dd>
+                                <dd>
+                                    <a href="http://www.52pojie.cn/forum.php?mod=redirect&tid=251290&goto=lastpost#lastpost">最后发表: 2016-12-17 17:34</a>
+                                </dd>
+                            </dl>
+                        </td>
+                        <td style="padding-top: 10px;">
+                            <div style="float: left;">
+                                <a href="http://www.52pojie.cn/forun-42-1.html">
+                                    <img src="http://www.52pojie.cn/static/image/common/forum.gif" alt="『电子书策划制作区』">
+                                </a>
+                            </div>
+                            <dl style="padding-left:15px; margin-left: 31px">
+                                <dt>
+                                    <a href="http://www.52pojie.cn/forum-42-1.html">『电子书策划制作区』</a>
+                                    <em style="color: #F26C4F">(1)</em>
+                                </dt>
+                                <dd>
+                                    <span>主题：38, 帖数：9178</span>
+                                </dd>
+                                <dd>
+                                    <a href="http://www.52pojie.cn/forum.php?mod=redirect&tid=474159&goto=lastpost#lastpost">最后发表: 2016-12-31 10:38</a>
+                                </dd>
+                            </dl>
+                        </td>
+                        <td style="padding-top: 10px;">
+                            <div style="float: left;">
+                                <a href="http://www.52pojie.cn/forun-36-1.html">
+                                    <img src="http://www.52pojie.cn/static/image/common/forum.gif" alt="『周年庆典活动专区』">
+                                </a>
+                            </div>
+                            <dl style="padding-left:15px; margin-left: 31px">
+                                <dt>
+                                    <a href="http://www.52pojie.cn/forum-36-1.html">『周年庆典活动专区』</a>
+                                </dt>
+                                <dd>
+                                    <span>主题：86, 帖数：2384</span>
+                                </dd>
+                                <dd>
+                                    <a href="http://www.52pojie.cn/forum.php?mod=redirect&tid=519929&goto=lastpost#lastpost">最后发表: 2016-12-20 15:56</a>
+                                </dd>
+                            </dl>
+                        </td>
+                        <td style="padding-top: 10px;">
+                            <div style="float: left;">
+                                <a href="http://www.52pojie.cn/forun-67-1.html">
+                                    <img src="http://www.52pojie.cn/static/image/common/forum.gif" alt="『2014CrackMe大赛』">
+                                </a>
+                            </div>
+                            <dl style="padding-left:15px; margin-left: 31px">
+                                <dt>
+                                    <a href="http://www.52pojie.cn/forum-67-1.html" style="color: #F00">『2014CrackMe大赛』</a>
+                                    <em style="color: #F26C4F">(3)</em>
+                                </dt>
+                                <dd>
+                                    <span>主题：153, 帖数：3517</span>
+                                </dd>
+                                <dd>
+                                    <a href="http://www.52pojie.cn/forum.php?mod=redirect&tid=299228&goto=lastpost#lastpost">最后发表: 2016-12-31 10:17</a>
+                                </dd>
+                            </dl>
+                        </td>
+                        <td style="padding-top: 10px;">
+                            <div style="float: left;">
+                                <a href="http://www.52pojie.cn/forun-71-1.html">
+                                    <img src="http://www.52pojie.cn/static/image/common/forum.gif" alt="『吾爱破解2016安全挑战赛』">
+                                </a>
+                            </div>
+                            <dl style="padding-left:15px; margin-left: 31px">
+                                <dt>
+                                    <a href="http://www.52pojie.cn/forum-71-1.html"  style="color: #F00">『吾爱破解2016安全挑战赛』</a>
+                                    <em style="color: #F26C4F">(2)</em>
+                                </dt>
+                                <dd>
+                                    <span>主题：118, 帖数：4865</span>
+                                </dd>
+                                <dd>
+                                    <a href="http://www.52pojie.cn/forum.php?mod=redirect&tid=481673&goto=lastpost#lastpost">最后发表: 2016-12-31 13:51</a>
+                                </dd>
+                            </dl>
+                        </td>
+                    </table>
+                </div>
+
+                <div  style="background-color: #E5EDF2; border:1px solid #C2D5E3; border-width: 1px 0px; height: 30px; padding-left: 30px; overflow: hidden; ">
+                    <a href="http://www.52pojie.cn/forum.php?gid=26" style="font:bold 12px Tahoma,Helvetica,SimSun,sans-serif;line-height: 30px; color: #369">【 管理 】</a>
+                    <img src="http://www.52pojie.cn/static/image/common/collapsed_no.gif" style="float: right;margin: 6px 10px; cursor: pointer;" title="收起/展开" alt="收起/展开" onclick="toggle_collapse('category_5')";>
+                    <span style="float: right;line-height: 30px;">
+                        分区版主：
+                        <a href="http://www.52pojie.cn/home.php?mod=space&username=Hmily" class="blue_a">Hmily</a>
+                    </span>
+                </div>
+                <div class="software_safe" style="padding:10px" id="category_5">
+                    <table width=100%>
+                        <tr>
+                            <td class="ts_1">
+                                <a href="http://www.52pojie.cn/forun-13-1.html">
+                                    <img src="http://www.52pojie.cn/static/image/common/forum.gif" alt="『站点公告』">
+                                </a>
+                            </td>
+                            <td class="ts_2">
+                                <h7>
+                                    <a href="http://www.52pojie.cn/forum-13-1.html";font-weight: bold">『站点公告』</a><span style="color: #F26C4F">(5)</span>
+                                </h7><br>
+                                ◇开放注册信息，版块调整公告，站点信息发布，会员违规处理等开放注册信息，版块调整公告，站点信息发布，会员违规处理等◇<br>
+                                <span>版主：
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=zzage" class="blue_a">zzage</a>
+                                </span>
+                            </td>
+                            <td class="ts_3">
+                                <span>345/14万</span>
+                            </td>
+                            <td class="ts_4">
+                                <div class="ds">
+                                    <a href="http://www.52pojie.cn/forum.php?mod=redirect&tid=555215&goto=lastpost#lastpost" class="blue_a">梁景祯，警察在找你！Ban：huita ...</a>
+                                    <span>2016-12-31 17:01 <a href="http://www.52pojie.cn/home.php?mod=space&username=kofrockman">kofrockman</a></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="tr_dashed">
+                            <td class="ts_1">
+                                <a href="http://www.52pojie.cn/forun-39-1.html">
+                                    <img src="http://www.52pojie.cn/static/image/common/forum.gif" alt="『招聘求职』">
+                                </a>
+                            </td>
+                            <td class="ts_2">
+                                <h7>
+                                    <a href="http://www.52pojie.cn/forum-39-1.html";font-weight: bold">『招聘求职』</a><span style="color: #F26C4F">(1)</span>
+                                </h7><br>
+                                ◇此版块只允许发布招聘和求职相关信息！◇<br>
+                                ◇本区支持游客发帖，欢迎正规公司前来发布招聘信息！◇<br>
+                                <span>版主：
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=LCG" class="blue_a">LCG</a>
+                                </span>
+                            </td>
+                            <td class="ts_3">
+                                <span>453/8861</span>
+                            </td>
+                            <td class="ts_4">
+                                <div class="ds">
+                                    <a href="http://www.52pojie.cn/forum.php?mod=redirect&tid=563823&goto=lastpost#lastpost" class="blue_a">招聘：服务端开发工程师</a>
+                                    <span>2016-12-31 15:23 <a href="http://www.52pojie.cn/home.php?mod=space&username=nywll">nywll</a></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="tr_dashed">
+                            <td class="ts_1">
+                                <a href="http://www.52pojie.cn/forun-25-1.html">
+                                    <img src="http://www.52pojie.cn/static/image/common/forum.gif" alt="『申请专区』">
+                                </a>
+                            </td>
+                            <td class="ts_2">
+                                <h7>
+                                    <a href="http://www.52pojie.cn/forum-25-1.html";font-weight: bold">『申请专区』</a><span style="color: #F26C4F">(3)</span>
+                                </h7><br>
+                                ◇会员、版主、勋章、友情链接申请，发帖前请认真阅读本版规则！◇<br>
+                                ◇本区支持游客发帖、跟帖相应的申请！◇<br>
+                                <span>版主：
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=Peace" class="blue_a">Peace</a>
+                                    <a href="http://www.52pojie.cn/home.php?mod=space&username=willJ" class="blue_a">willJ</a>
+                                </span>
+                            </td>
+                            <td class="ts_3">
+                                <span>2334/1万</span>
+                            </td>
+                            <td class="ts_4">
+                                <div class="ds">
+                                    <a href="http://www.52pojie.cn/forum.php?mod=redirect&tid=567957&goto=lastpost#lastpost" class="blue_a">申请会员ID：murder2008【申请通 ...</a>
+                                    <span>2016-12-29 08:52 <a href="http://www.52pojie.cn/home.php?mod=space&username=%C4%E4%C3%FB">匿名</a></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+
+            <div style="background-color: #E5EDF2; border:1px solid #C2D5E3; overflow: hidden; margin: 15px; padding: 0px 10px; line-height: 30px; box-shadow: 1px 5px 1px">
+                <span>在线会员-总计 10439 人在线-最高纪录是 55290 于 2016-11-11.</span>
+                <img src="http://www.52pojie.cn/static/image/common/collapsed_yes.gif" style="float: right;margin: 6px 10px; cursor: pointer" title="收起/展开" alt="收起/展开" style="float: right;">
+            </div>
+
+            <div id="fix_d">
+                <a href="javascript:" class="soso"></a>
+                <a href="javascript:" class="weixin"></a>
+                <a href="javascript:" class="per_cen"></a>
+                <a href="#" class="ret_top"></a>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </body>
+        </html>
